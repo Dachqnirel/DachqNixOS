@@ -13,6 +13,9 @@ in
       DisablePrivateBrowsing  = true;
       DisableProfileImport    = true;
       DisableFirefoxAccounts  = true;
+      DisableTelemetry        = true;   # меньше фоновой работы
+      DisableFirefoxStudies   = true;
+      DisablePocket           = true;
 
       ExtensionSettings = {
         "uBlock0@raymondhill.net"                = addon "ublock-origin";
