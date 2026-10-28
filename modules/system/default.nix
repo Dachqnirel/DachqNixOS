@@ -7,5 +7,6 @@
     ./networking.nix
     ./users.nix
     ./shell.nix
+    ./performance.nix
   ];
 }
