@@ -4,5 +4,6 @@
     ./plasma.nix
     ./fonts.nix
     ./firefox.nix
+    ./niri.nix
   ];
 }
