@@ -1,12 +1,12 @@
-# Пакеты из внешнего flake nix-craftapps.
-# Подключается через inputs → поэтому `inputs` в аргументах.
-{ inputs, pkgs, ... }:
+# ArtCraft-приложения. Запуск: меню Plasma или `photocraft` / `deckcraft`
+{ inputs, ... }:
 
 {
-  environment.systemPackages =
-    with inputs.nix-craftapps.packages.${pkgs.stdenv.hostPlatform.system}; [
-      photocraft
-      deckcraft
-      # effectcraft — пока с битым хешом, не добавлять
-    ];
+  imports = [ inputs.nix-craftapps.nixosModules.default ];
+
+  programs.craftapps = {
+    enable = true;
+    apps.photocraft.enable = true;
+    apps.deckcraft.enable  = true;
+  };
 }

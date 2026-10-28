@@ -7,6 +7,6 @@
     ./dev.nix
     ./python.nix
     ./latex.nix
-    # ./craftapps.nix   # раскомментируй, когда добавишь nix-craftapps во flake.nix
+    ./craftapps.nix
   ];
 }

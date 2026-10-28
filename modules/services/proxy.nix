@@ -1,10 +1,5 @@
-# Обход блокировок: zapret, Throne
-{ inputs, ... }:
-
+# Throne — прокси-клиент
 {
-  # Модуль zapret берётся из внешнего flake (см. inputs во flake.nix)
-  imports = [ inputs.zapret-discord-youtube.nixosModules.default ];
-
   programs.throne = {
     enable = true;
     tunMode = {

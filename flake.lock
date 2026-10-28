@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "nix-craftapps": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792992816,
+        "narHash": "sha256-5Qf+LQcXnKjywUS/yz25jbsjpXPT8Xhr40Nr6r9XTHI=",
+        "owner": "olafkfreund",
+        "repo": "nix-craftapps",
+        "rev": "09dae1c49ecc8d99c5740a42c07fd26239de2173",
+        "type": "github"
+      },
+      "original": {
+        "owner": "olafkfreund",
+        "repo": "nix-craftapps",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1788179007,
@@ -16,61 +36,10 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1786106723,
-        "narHash": "sha256-zDSUbpoeo/9ZmD2+wXnzxoo1+uhL8vxc0b8yuYMKYq0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f13ff45afd1bb73e640eaa08a7066dbed07e3238",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "zapret-discord-youtube": "zapret-discord-youtube"
-      }
-    },
-    "zapret-discord-youtube": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "zapret-flowseal": "zapret-flowseal"
-      },
-      "locked": {
-        "lastModified": 1784758289,
-        "narHash": "sha256-gUwiD33Dn5Q4Fi3RwbRmJJ7wiRw19rvyFJBBnhHWMQc=",
-        "owner": "kartavkun",
-        "repo": "zapret-discord-youtube",
-        "rev": "a7d7f1dd3765937b051d1289fba3fde2a6c8c7c0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kartavkun",
-        "repo": "zapret-discord-youtube",
-        "type": "github"
-      }
-    },
-    "zapret-flowseal": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786288778,
-        "narHash": "sha256-LPV9ruCAznU8LL7wT+KMt0fECGMUP+8qo1r5PxqMYxs=",
-        "owner": "Flowseal",
-        "repo": "zapret-discord-youtube",
-        "rev": "47da17f80ad36a8424cdd25658153fdebd7eb938",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Flowseal",
-        "repo": "zapret-discord-youtube",
-        "type": "github"
+        "nix-craftapps": "nix-craftapps",
+        "nixpkgs": "nixpkgs"
       }
     }
   },
