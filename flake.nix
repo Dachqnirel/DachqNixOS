@@ -1,20 +1,32 @@
 {
-  description = "My NixOS configuration";
+  description = "NixOS-конфигурация dachQnirel";
 
+  # ── Откуда берём код ───────────────────────────────────────────────
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     zapret-discord-youtube.url = "github:kartavkun/zapret-discord-youtube";
+
+    # TODO: подставь реальный адрес репозитория и раскомментируй,
+    # затем включи ./craftapps.nix в modules/packages/default.nix
+    # nix-craftapps.url = "github:<владелец>/nix-craftapps";
   };
 
-  outputs = { self, nixpkgs, zapret-discord-youtube, ... }: {
+  # ── Что из этого собираем ──────────────────────────────────────────
+  # `@inputs` — все входы одним набором, чтобы передать их в модули.
+  outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations = {
-      # "nixos" - это networking.hostName из твоего конфига
+      # Имя совпадает с networking.hostName, поэтому
+      # `nixos-rebuild switch --flake /etc/nixos` найдёт его сам.
       nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          zapret-discord-youtube.nixosModules.default
-        ];
+        # specialArgs — дополнительные аргументы, которые получит
+        # КАЖДЫЙ модуль: { inputs, username, pkgs, config, ... }
+        specialArgs = {
+          inherit inputs;
+          username = "dachqnirel";
+        };
+
+        modules = [ ./configuration.nix ];
       };
     };
   };

@@ -1,0 +1,3 @@
+# Симлинк, который оставляет `nixos-rebuild build`
+result
+result-*
