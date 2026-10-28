@@ -11,7 +11,7 @@
 
     ./modules/system           # загрузчик, nix, локаль, сеть, пользователь
     ./modules/hardware         # NVIDIA, звук, bluetooth
-    ./modules/desktop          # Plasma, шрифты, Firefox
+    ./modules/desktop          # niri, шрифты, Firefox
     ./modules/services         # Docker, KVM, прокси, печать
     ./modules/packages         # программы
   ];

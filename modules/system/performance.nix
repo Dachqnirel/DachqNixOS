@@ -26,9 +26,6 @@
   # Docker запускается при первом обращении, а не при каждой загрузке
   virtualisation.docker.enableOnBoot = false;
 
-  # Discover на NixOS бесполезен (программы ставятся через конфиг),
-  # а его уведомлялка висит в фоне и проверяет обновления
-  environment.plasma6.excludePackages = [ pkgs.kdePackages.discover ];
 
   # Раз в неделю TRIM для SSD — диск не замедляется со временем
   services.fstrim.enable = true;
