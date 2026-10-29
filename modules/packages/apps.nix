@@ -13,7 +13,6 @@
     # Заметки, наука, офис
     obsidian
     zotero
-    libreoffice-stable
 
     # Терминалы
     alacritty
