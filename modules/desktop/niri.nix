@@ -41,6 +41,7 @@ in
   # ── Noctalia: панель, меню, уведомления, экран блокировки ──────────
   # Стартует вместе с сессией niri как служба пользователя.
   systemd.user.services.noctalia = {
+    enableDefaultPath = false; # PATH из сессии niri, иначе лаунчер не видит программы
     description = "Noctalia shell";
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
