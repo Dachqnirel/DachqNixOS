@@ -1,11 +1,12 @@
-# Оболочка и редактор по умолчанию
+# Оболочка и редактор по умолчанию.
+# Сам neovim и его настройки — в ../../home/neovim.nix
 {
-  programs.zsh = {
-    enable = true;
-  };
+  programs.zsh.enable = true;
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;   # $EDITOR = nvim
+  # nvim — редактор по умолчанию: git commit, sudoedit, crontab -e и т.д.
+  # Системные файлы удобно править так: sudoedit /etc/nixos/...
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
 }

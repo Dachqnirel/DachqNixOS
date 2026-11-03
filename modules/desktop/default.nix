@@ -8,5 +8,7 @@
     ./default-apps.nix
     ./terminal.nix
     ./filemanager.nix
+    ./theme.nix
+    ./home.nix
   ];
 }

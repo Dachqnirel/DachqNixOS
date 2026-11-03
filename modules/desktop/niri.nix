@@ -1,27 +1,57 @@
-# niri + Noctalia — рабочий стол вместо Plasma
-{ lib, pkgs, ... }:
+# niri + Noctalia — рабочий стол вместо Plasma.
+# Конфиг самого niri (бинды, окна, цвета) — в ../../home/niri.nix
+{ config, lib, pkgs, ... }:
 
+let
+  # Экран входа: текстовый, в палитре системы (цвета консоли = палитра)
+  tuigreetTheme = lib.concatStringsSep ";" [
+    "border=darkgray"
+    "title=red"
+    "text=gray"
+    "greet=red"
+    "prompt=red"
+    "input=white"
+    "time=darkgray"
+    "action=darkgray"
+    "button=red"
+    "container=black"
+  ];
+in
 {
-  # ── Композитор и экран входа ────────────────────────────────────────
+  # ── Композитор ──────────────────────────────────────────────────────
   programs.niri.enable = true;
-  services.xserver.enable = true;              # нужен экрану входа SDDM
-  services.displayManager.sddm.enable = true;
 
-  # ── Noctalia: панель, меню, уведомления, центр управления ──────────
+  # ── Экран входа: greetd + tuigreet вместо SDDM ──────────────────────
+  # Работает без X-сервера: меньше процессов, дискретку никто не держит.
+  services.greetd = {
+    enable = true;
+    useTextGreeter = true;
+    settings.default_session.command = lib.concatStringsSep " " [
+      "${pkgs.tuigreet}/bin/tuigreet"
+      "--time"
+      "--remember"
+      "--asterisks"
+      "--width 60"
+      "--greeting '+++ MACHINE SPIRIT AWAITS +++'"
+      "--theme '${tuigreetTheme}'"
+      "--cmd ${config.programs.niri.package}/bin/niri-session"
+    ];
+  };
+
+  # ── Noctalia: панель, меню, уведомления, экран блокировки ──────────
   # Стартует вместе с сессией niri как служба пользователя.
-  # Старая версия называется pkgs.noctalia-shell — если что, меняем тут.
   systemd.user.services.noctalia = {
     description = "Noctalia shell";
     wantedBy = [ "graphical-session.target" ];
-    partOf   = [ "graphical-session.target" ];
-    after    = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
     serviceConfig = {
       ExecStart = lib.getExe pkgs.noctalia;
-      Restart   = "on-failure";
+      Restart = "on-failure";
     };
   };
 
-  # Раньше их включала Plasma; Noctalia берёт из них батарею и режимы питания
+  # Батарея и режимы питания для Noctalia
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
 
@@ -30,29 +60,27 @@
   systemd.user.services.polkit-agent = {
     description = "polkit authentication agent";
     wantedBy = [ "graphical-session.target" ];
-    partOf   = [ "graphical-session.target" ];
-    after    = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      Restart   = "on-failure";
+      Restart = "on-failure";
     };
   };
 
-  # Хранилище паролей вместо KWallet (VS Code, Telegram и др.)
+  # Хранилище паролей (VS Code, Telegram и др.) — открывается паролем входа
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
 
-  # Окна «Открыть/Сохранить файл»
+  # Окна «Открыть/Сохранить» для GTK (основные — от Dolphin, см. filemanager.nix)
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   environment.systemPackages = with pkgs; [
     noctalia
-    fuzzel                 # запуск программ (Super+D)
-    swaylock               # запасной экран блокировки
-    xwayland-satellite     # X11-программы (Firefox, VS Code, Telegram)
-    pavucontrol            # подробные настройки звука
-    kdePackages.dolphin    # файловый менеджер
-    kdePackages.kate       # текстовый редактор
-    kdePackages.ark        # архивы
+    xwayland-satellite # X11-программы
+    pavucontrol # подробные настройки звука
+    playerctl # кнопки медиа на клавиатуре
+    kdePackages.kate # текстовый редактор
+    kdePackages.ark # архивы
   ];
 }
