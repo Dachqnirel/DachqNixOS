@@ -132,7 +132,7 @@ let
         Mod+Shift+Slash { show-hotkey-overlay; }
 
         // Программы
-        Mod+T hotkey-overlay-title="Терминал" { spawn-sh "footclient || foot"; }
+        Mod+T hotkey-overlay-title="Терминал" { spawn-sh "footclient --no-wait || foot"; }
         Mod+E hotkey-overlay-title="Файлы" { spawn "dolphin"; }
         Mod+Space hotkey-overlay-title="Запуск программ" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
         Mod+D hotkey-overlay-title=null { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
