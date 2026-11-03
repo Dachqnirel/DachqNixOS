@@ -36,4 +36,12 @@ in
 
   # Папки по умолчанию открываются в Dolphin
   xdg.mime.defaultApplications."inode/directory" = "org.kde.dolphin.desktop";
+
+  # Схемы цветов (Breeze Dark и др.) видны всем программам
+  environment.pathsToLink = [ "/share/color-schemes" ];
+
+  # Общий тёмный режим системы: его подхватывают Dolphin, GTK-программы и Firefox
+  programs.dconf.profiles.user.databases = [
+    { settings."org/gnome/desktop/interface".color-scheme = "prefer-dark"; }
+  ];
 }

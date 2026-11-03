@@ -2,7 +2,6 @@
 {
   programs.zsh = {
     enable = true;
-    shellInit = "echo 'Welcome to NixOS!'";
   };
 
   programs.neovim = {
