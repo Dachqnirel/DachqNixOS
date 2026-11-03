@@ -25,7 +25,4 @@ in
       };
     };
   };
-
-  # Firefox работает через XWayland — обход проблем отрисовки на NVIDIA
-  environment.sessionVariables.MOZ_ENABLE_WAYLAND = "0";
-}
+} 

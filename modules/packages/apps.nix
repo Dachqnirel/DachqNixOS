@@ -13,9 +13,5 @@
     # Заметки, наука, офис
     obsidian
     zotero
-
-    # Терминалы
-    alacritty
-    kitty
   ];
 }

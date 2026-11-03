@@ -6,5 +6,7 @@
     ./niri.nix
     ./default-apps.nix
     ./default-apps.nix
+    ./terminal.nix
+    ./filemanager.nix
   ];
 }
