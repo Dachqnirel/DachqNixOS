@@ -165,4 +165,8 @@ in
   ];
   boot.consoleLogLevel = lib.mkDefault 3;
   boot.initrd.verbose = lib.mkDefault false;
+
+  # Ранний KMS: драйвер Intel грузится сразу, и экран входа
+  # появляется в полном разрешении, а не в углу
+  boot.initrd.kernelModules = [ "i915" ];
 }
