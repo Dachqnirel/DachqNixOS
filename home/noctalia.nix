@@ -53,7 +53,7 @@ let
     secondary = c.base0F;
     on_secondary = c.base07;
     # холодный синий — третий
-    tertiary = c.base0D;
+    tertiary = c.base0B;
     on_tertiary = c.base00;
     error = c.base08;
     on_error = c.base07;
@@ -70,7 +70,7 @@ let
     mOnPrimary = c.base07;
     mSecondary = c.base0F;
     mOnSecondary = c.base07;
-    mTertiary = c.base0D;
+    mTertiary = c.base0B;
     mOnTertiary = c.base00;
     mError = c.base08;
     mOnError = c.base07;

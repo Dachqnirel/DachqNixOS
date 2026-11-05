@@ -13,5 +13,6 @@
     # Заметки, наука, офис
     obsidian
     zotero
+    libreoffice-qt-stable
   ];
 }
