@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792526520,
+        "narHash": "sha256-3hSJlv8mUVnZPMWK2+CM7a9O+nR6Z4mCh27NfLCmTPc=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "cedd626e11b635470fa6f9fdb8ad79b0075dd7f9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -27,14 +47,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1794088533,
-        "narHash": "sha256-8g0epI4oXW8amBUvwjv3Tp1mngGiMi55p56jPUTDZvM=",
-        "path": "/home/dachqnirel/microlauncher",
-        "type": "path"
+        "lastModified": 1794091973,
+        "narHash": "sha256-sC1vtrrvdgGFn2Ve/CxbjLXLnBR1usWrWiBVop5xxMI=",
+        "owner": "Dachqnirel",
+        "repo": "microlauncher",
+        "rev": "76dcf8da823d8e6fccdb3361227778b4263d6b60",
+        "type": "github"
       },
       "original": {
-        "path": "/home/dachqnirel/microlauncher",
-        "type": "path"
+        "owner": "Dachqnirel",
+        "repo": "microlauncher",
+        "type": "github"
       }
     },
     "nix-craftapps": {
@@ -75,6 +98,7 @@
     },
     "root": {
       "inputs": {
+        "disko": "disko",
         "home-manager": "home-manager",
         "microlauncher": "microlauncher",
         "nix-craftapps": "nix-craftapps",
