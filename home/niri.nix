@@ -1,11 +1,17 @@
 # Конфиг niri. Файл ~/.config/niri/config.kdl собирается отсюда и
 # проверяется (`niri validate`) ещё при сборке: с ошибкой система просто
 # не соберётся, а рабочий конфиг останется прежним.
-{ pkgs, username, ... }:
+{
+  pkgs,
+  username,
+  osConfig,
+  ...
+}:
 
 let
   p = import ../theme/palette.nix;
   c = p.hex;
+  display = osConfig.machine.display; # экран задаётся в hosts/<имя>/default.nix
 
   niriConfig = ''
     // ─────────────────────────────────────────────────────────────────
@@ -14,6 +20,8 @@ let
     // ─────────────────────────────────────────────────────────────────
 
     input {
+        disable-power-key-handling // кнопка питания выключает, а не усыпляет
+
         keyboard {
             xkb {
                 layout "us,ru"
@@ -28,9 +36,9 @@ let
         }
     }
 
-    // Экран ноутбука: масштаб 125%, как было в Plasma
-    output "eDP-1" {
-        scale 1.25
+    // Встроенный экран: имя и масштаб — из hosts/<имя>/default.nix
+    output "${display.output}" {
+        scale ${toString display.scale}
     }
 
     layout {

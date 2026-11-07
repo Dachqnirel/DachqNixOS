@@ -1,5 +1,5 @@
 # foot и fastfetch в палитре системы
-{ ... }:
+{ osConfig, ... }:
 
 let
   p = import ../theme/palette.nix;
@@ -10,6 +10,9 @@ let
   line = "────────────────────────────"; # 28 символов
   label = " MACHINE SPIRIT "; # 16 символов
   bottom = "────────────────"; # 16 символов, под надписью
+
+  # Видеокарта: подпись из hosts/<имя>/default.nix или автоопределение
+  gpuLabel = osConfig.machine.gpuLabel;
 in
 {
   # ── foot ────────────────────────────────────────────────────────────
@@ -107,12 +110,20 @@ in
           key = "CPU         ";
           format = "{name} ({cores-physical}C/{cores-logical}T)";
         }
-        {
-          type = "custom";
-          key = "GPU         ";
-          keyIcon = "󰢮";
-          format = "RTX 3060 Mobile + Iris Xe";
-        }
+        (
+          if gpuLabel != "" then
+            {
+              type = "custom";
+              key = "GPU         ";
+              keyIcon = "󰢮";
+              format = gpuLabel;
+            }
+          else
+            {
+              type = "gpu";
+              key = "GPU         ";
+            }
+        )
         { type = "memory"; key = "MEMORY      "; }
         { type = "disk"; key = "DISK        "; folders = "/"; }
         { type = "battery"; key = "BATTERY     "; }
