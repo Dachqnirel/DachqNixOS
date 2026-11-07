@@ -14,6 +14,10 @@
     backupFileExtension = "pre-hm";
     overwriteBackup = true;
 
-    users.${username} = import ../../home;
+    # Рабочий профиль; игровой — в ../gaming
+    users.${username}.imports = [
+      ../../home
+      ../../home/work.nix
+    ];
   };
 }

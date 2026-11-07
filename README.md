@@ -12,7 +12,10 @@ hosts/
   template/          шаблон для нового ноутбука (+ disko.nix — разметка диска)
 modules/             общее для всех: система, графика, рабочий стол, программы
   machine.nix        опции machine.* — чем ноутбуки отличаются друг от друга
+  gaming/            игровой пользователь play: Steam, Minecraft
 home/                Home Manager: niri, Noctalia, foot, fastfetch, neovim, GTK
+  work.nix           только рабочий профиль (игр не видно)
+  gaming.nix         только игровой профиль
 theme/palette.nix    единая палитра — меняешь цвет здесь, он меняется везде
 ```
 
@@ -25,6 +28,22 @@ machine = {
   display.scale = 1.25;      # масштаб экрана
 };
 ```
+
+## Два профиля: работа и игры
+
+- `dachqnirel` — работа: niri, Noctalia, neovim. Steam здесь скрыт.
+- `play` — игры: Steam, microlauncher (Minecraft), MangoHud, gamemode.
+  Тема и программы те же, но домашняя папка своя.
+
+На экране входа после выбора пользователя `F3` — выбор сеанса:
+**Steam** (консоль Big Picture через gamescope) или **niri** (рабочий стол,
+Steam в окне на дискретной видеокарте). Выбор запоминается для каждого.
+
+В свойствах игры в Steam (Launch Options):
+`gamemoderun %command%` — режим производительности,
+`MANGOHUD=1 %command%` — оверлей с FPS.
+
+Включается одной строкой в `hosts/<имя>/default.nix`: `gaming.enable = true;`
 
 ## Каждый день
 

@@ -31,6 +31,9 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
+  # Игровой пользователь play: Steam, Minecraft (см. modules/gaming)
+  gaming.enable = true;
+
   # Отключаем автосон USB (специфично для этого ноутбука)
   boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 

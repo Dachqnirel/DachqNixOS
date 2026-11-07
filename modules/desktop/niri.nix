@@ -30,6 +30,8 @@ in
       "${pkgs.tuigreet}/bin/tuigreet"
       "--time"
       "--remember"
+      "--remember-user-session" # у каждого пользователя свой сеанс: niri или Steam
+      "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
       "--asterisks"
       "--width 60"
       "--greeting '+++ MACHINE SPIRIT AWAITS +++'"

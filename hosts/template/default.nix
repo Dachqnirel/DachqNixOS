@@ -23,6 +23,9 @@
     # gpuLabel = "";  # пусто — fastfetch определит видеокарту сам
   };
 
+  # Игровой пользователь play со Steam (см. modules/gaming)
+  gaming.enable = false; # ✎
+
   # Только при NVIDIA: адреса из `lspci` (формат PCI:шина:устройство:функция)
   # hardware.nvidia.prime = {
   #   intelBusId  = "PCI:0:2:0";

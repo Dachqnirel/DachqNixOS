@@ -2,8 +2,8 @@
 # проверяется (`niri validate`) ещё при сборке: с ошибкой система просто
 # не соберётся, а рабочий конфиг останется прежним.
 {
+  config,
   pkgs,
-  username,
   osConfig,
   ...
 }:
@@ -146,7 +146,7 @@ let
         Mod+D hotkey-overlay-title=null { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
         Mod+S hotkey-overlay-title="Центр управления" { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
         Super+Alt+L hotkey-overlay-title="Заблокировать" { spawn "noctalia" "msg" "session" "lock"; }
-        Mod+Shift+Q hotkey-overlay-title="Закрыть все окна" { spawn "sh" "/home/${username}/.config/niri/close-all.sh"; }
+        Mod+Shift+Q hotkey-overlay-title="Закрыть все окна" { spawn "sh" "${config.xdg.configHome}/niri/close-all.sh"; }
 
         // Звук и яркость — через Noctalia, с экранной индикацией
         XF86AudioRaiseVolume allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
