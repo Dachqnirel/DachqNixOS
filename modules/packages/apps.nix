@@ -1,5 +1,5 @@
 # Графические приложения
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs.java = { enable = true; package = pkgs.jdk25; };
@@ -16,5 +16,6 @@
     obsidian
     zotero
     libreoffice-qt-stable
+    inputs.microlauncher.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

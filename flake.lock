@@ -20,6 +20,23 @@
         "type": "github"
       }
     },
+    "microlauncher": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794081908,
+        "narHash": "sha256-tiuHEvELvOFOLwfOM1Dglotc53l+4wGoMjwrH620Fks=",
+        "path": "/home/dachqnirel/microlauncher",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/dachqnirel/microlauncher",
+        "type": "path"
+      }
+    },
     "nix-craftapps": {
       "inputs": {
         "nixpkgs": [
@@ -59,6 +76,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "microlauncher": "microlauncher",
         "nix-craftapps": "nix-craftapps",
         "nixpkgs": "nixpkgs"
       }
