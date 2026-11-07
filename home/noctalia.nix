@@ -113,7 +113,7 @@ in
 
     [theme]
     mode           = "dark"
-    source         = "custom"
+    source         = "wallpaper"
     custom_palette = "${p.name}"
 
     [wallpaper]
