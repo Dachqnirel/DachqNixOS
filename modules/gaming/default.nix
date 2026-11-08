@@ -27,6 +27,14 @@ let
     __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     __VK_LAYER_NV_optimus = "NVIDIA_only";
+
+    # DLSS и Reflex в Windows-играх через Proton
+    PROTON_ENABLE_NVAPI = "1";
+
+    # Кэш шейдеров побольше (по умолчанию ~1 ГБ на всё): меньше
+    # подтормаживаний, когда игра впервые видит новый эффект или уровень
+    __GL_SHADER_DISK_CACHE_SIZE = "12000000000";
+    __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
   };
 
   # Big Picture → «Переключиться на рабочий стол» вызывает эту команду
@@ -95,7 +103,13 @@ in
     };
 
     # Режим производительности на время игры: gamemoderun %command%
+    # (частоты и профиль питания уже подняты на весь сеанс play —
+    # см. home/gaming.nix; gamemode добавляет приоритет самой игре)
     programs.gamemode.enable = true;
+
+    # Как в SteamOS: ядро не тормозит программы за «split lock».
+    # Некоторые Windows-игры из-за этого заметно дёргаются.
+    boot.kernel.sysctl."kernel.split_lock_mitigate" = 0;
 
     # Home Manager: та же тема и программы, что у рабочего профиля,
     # плюс игровые мелочи
