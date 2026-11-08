@@ -8,5 +8,6 @@
     ./python.nix
     ./latex.nix
     ./craftapps.nix
+    ./claude.nix # Claude Code + прокси по выбору (px)
   ];
 }
