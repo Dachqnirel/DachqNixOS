@@ -62,7 +62,8 @@ in
       # Программы только этого пользователя: в рабочем профиле их нет
       packages = with pkgs; [
         microlauncher
-        mangohud # оверлей: FPS, температуры, загрузка (MANGOHUD=1 %command%)
+        nvtopPackages.full # загрузка и температура обеих видеокарт
+        lm_sensors # `sensors` — температуры процессора и вентиляторы
         protonup-qt # ещё версии Proton, если понадобятся
       ];
     };
@@ -72,9 +73,15 @@ in
     programs.steam = {
       enable = true;
       package = pkgs.steam.override {
-        extraEnv = lib.optionalAttrs nvidia primeOffload;
+        extraEnv = {
+          MANGOHUD = "1"; # оверлей и лимит кадров во всех играх (см. home/gaming.nix)
+        }
+        // lib.optionalAttrs nvidia primeOffload;
       };
-      extraPackages = [ sessionSelect ];
+      extraPackages = [
+        sessionSelect
+        pkgs.mangohud # чтобы MangoHud был виден играм внутри Steam
+      ];
       gamescopeSession = {
         enable = true; # сеанс «Steam» на экране входа
         steamArgs = [
@@ -92,6 +99,9 @@ in
 
     # Home Manager: та же тема и программы, что у рабочего профиля,
     # плюс игровые мелочи
-    home-manager.users.${cfg.user}.imports = [ ../../home ];
+    home-manager.users.${cfg.user}.imports = [
+      ../../home
+      ../../home/gaming.nix # MangoHud, режим «Производительность»
+    ];
   };
 }
