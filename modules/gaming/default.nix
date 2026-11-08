@@ -17,6 +17,24 @@
 
 let
   cfg = config.gaming;
+  nvidia = config.machine.nvidia.enable;
+
+  # Steam и всё, что он запускает, рисуют на дискретной видеокарте.
+  # Переменные действуют только внутри Steam: niri и gamescope остаются
+  # на встроенной, дискретка работает, только пока открыт Steam.
+  primeOffload = {
+    __NV_PRIME_RENDER_OFFLOAD = "1";
+    __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    __VK_LAYER_NV_optimus = "NVIDIA_only";
+  };
+
+  # Big Picture → «Переключиться на рабочий стол» вызывает эту команду
+  # (на SteamOS она меняет сеанс). Здесь — просто закрыть Steam: сеанс
+  # gamescope завершится и вернётся экран входа.
+  sessionSelect = pkgs.writeShellScriptBin "steamos-session-select" ''
+    exec steam -shutdown
+  '';
   microlauncher = inputs.microlauncher.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
@@ -53,7 +71,18 @@ in
     # профиле его ярлык скрыт — см. home/work.nix
     programs.steam = {
       enable = true;
-      gamescopeSession.enable = true; # сеанс «Steam» на экране входа
+      package = pkgs.steam.override {
+        extraEnv = lib.optionalAttrs nvidia primeOffload;
+      };
+      extraPackages = [ sessionSelect ];
+      gamescopeSession = {
+        enable = true; # сеанс «Steam» на экране входа
+        steamArgs = [
+          "-tenfoot" # сразу Big Picture
+          "-pipewire-dmabuf"
+          "-steamos3" # меню питания как на SteamOS: «Переключиться на рабочий стол»
+        ];
+      };
       extraCompatPackages = [ pkgs.proton-ge-bin ]; # Proton-GE: больше игр без плясок
       protontricks.enable = true;
     };
@@ -63,9 +92,6 @@ in
 
     # Home Manager: та же тема и программы, что у рабочего профиля,
     # плюс игровые мелочи
-    home-manager.users.${cfg.user}.imports = [
-      ../../home
-      ../../home/gaming.nix
-    ];
+    home-manager.users.${cfg.user}.imports = [ ../../home ];
   };
 }
