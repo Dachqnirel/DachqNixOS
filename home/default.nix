@@ -10,6 +10,7 @@
     ./terminal.nix # foot и fastfetch
     ./neovim.nix # редактор-IDE
     ./desktop.nix # GTK, курсор, обои
+    ./claude.nix # тема Claude Code из палитры
   ];
 
   # Версия, с которой начали пользоваться Home Manager. Не меняй при обновлениях.
