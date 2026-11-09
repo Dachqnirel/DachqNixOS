@@ -6,7 +6,6 @@
 
   environment.systemPackages = with pkgs; [
     # Браузеры (Firefox настроен в desktop/firefox.nix)
-    brave
 
     # Общение
     telegram-desktop

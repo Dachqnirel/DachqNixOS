@@ -164,6 +164,5 @@ in
     "udev.log_level=3"
   ];
   boot.consoleLogLevel = lib.mkDefault 3;
-  boot.initrd.verbose = lib.mkDefault false;
 
 }

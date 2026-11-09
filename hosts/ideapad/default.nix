@@ -34,6 +34,10 @@
   # Игровой пользователь play: Steam, Minecraft (см. modules/gaming)
   gaming.enable = true;
 
+  # Проверка памяти в меню загрузки + полная SysRq (Alt+PrtSc+REISUB)
+  boot.loader.systemd-boot.memtest86.enable = true;
+  boot.kernel.sysctl."kernel.sysrq" = 1;
+
   # Отключаем автосон USB (специфично для этого ноутбука)
   boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
