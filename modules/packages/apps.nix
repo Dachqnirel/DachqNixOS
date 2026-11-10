@@ -8,7 +8,7 @@
     # Браузеры (Firefox настроен в desktop/firefox.nix)
 
     # Общение
-    telegram-desktop
+    _64gram # форк Telegram: можно отключить глобальный поиск
     ayugram-desktop
 
     # Заметки, наука, офис
