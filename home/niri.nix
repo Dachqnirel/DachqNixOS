@@ -3,6 +3,7 @@
 # не соберётся, а рабочий конфиг останется прежним.
 {
   config,
+  lib,
   pkgs,
   osConfig,
   ...
@@ -12,6 +13,9 @@ let
   p = import ../theme/palette.nix;
   c = p.hex;
   display = osConfig.machine.display; # экран задаётся в hosts/<имя>/default.nix
+
+  # Игровой профиль (modules/gaming): при входе сразу Steam как в SteamOS
+  isGamer = osConfig.gaming.enable && config.home.username == osConfig.gaming.user;
 
   niriConfig = ''
     // ─────────────────────────────────────────────────────────────────
@@ -97,6 +101,12 @@ let
         QT_STYLE_OVERRIDE "breeze"
     }
 
+    ${lib.optionalString isGamer ''
+    // Игровой профиль: при входе Steam сразу в Big Picture — интерфейс
+    // SteamOS, но поверх niri (так игры работают лучше, чем в gamescope).
+    // Выйти на рабочий стол: Steam → Питание → «Выйти из Big Picture».
+    spawn-at-startup "steam" "-gamepadui"
+    ''}
     // Анимации чуть быстрее стандартных
     animations {
         slowdown 0.8
@@ -120,6 +130,12 @@ let
     window-rule {
         match app-id=r#"firefox$"# title="^Picture-in-Picture$"
         open-floating true
+    }
+
+    // Steam Big Picture — на весь экран, как консоль
+    window-rule {
+        match app-id="^steam$" title="^Steam Big Picture Mode$"
+        open-fullscreen true
     }
 
     // Настройки Noctalia — плавающим окном
