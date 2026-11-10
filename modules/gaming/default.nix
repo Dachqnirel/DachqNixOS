@@ -2,10 +2,9 @@
 #  Игровой пользователь: Steam, Minecraft (microlauncher) и всё игровое
 #  живут в его домашней папке и не мешают рабочему профилю.
 #
-#  На экране входа (F3 — выбор сеанса) у него два режима:
-#    Steam — консоль: Big Picture на весь экран через gamescope
-#    niri  — обычный рабочий стол с той же темой, Steam в окне
-#  tuigreet запоминает выбор для каждого пользователя.
+#  Сеанс — обычный niri с той же темой, Steam в окне.
+#  (Консольный сеанс gamescope убран: на ноутбуке с двумя видеокартами
+#  он работал заметно хуже, чем Steam внутри niri.)
 # ─────────────────────────────────────────────────────────────────────
 {
   config,
@@ -20,7 +19,7 @@ let
   nvidia = config.machine.nvidia.enable;
 
   # Steam и всё, что он запускает, рисуют на дискретной видеокарте.
-  # Переменные действуют только внутри Steam: niri и gamescope остаются
+  # Переменные действуют только внутри Steam: niri остаётся
   # на встроенной, дискретка работает, только пока открыт Steam.
   primeOffload = {
     __NV_PRIME_RENDER_OFFLOAD = "1";
@@ -37,12 +36,6 @@ let
     __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1";
   };
 
-  # Big Picture → «Переключиться на рабочий стол» вызывает эту команду
-  # (на SteamOS она меняет сеанс). Здесь — просто закрыть Steam: сеанс
-  # gamescope завершится и вернётся экран входа.
-  sessionSelect = pkgs.writeShellScriptBin "steamos-session-select" ''
-    exec steam -shutdown
-  '';
   microlauncher = inputs.microlauncher.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
@@ -87,17 +80,8 @@ in
         // lib.optionalAttrs nvidia primeOffload;
       };
       extraPackages = [
-        sessionSelect
         pkgs.mangohud # чтобы MangoHud был виден играм внутри Steam
       ];
-      gamescopeSession = {
-        enable = true; # сеанс «Steam» на экране входа
-        steamArgs = [
-          "-tenfoot" # сразу Big Picture
-          "-pipewire-dmabuf"
-          "-steamos3" # меню питания как на SteamOS: «Переключиться на рабочий стол»
-        ];
-      };
       extraCompatPackages = [ pkgs.proton-ge-bin ]; # Proton-GE: больше игр без плясок
       protontricks.enable = true;
     };
