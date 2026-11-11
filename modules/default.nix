@@ -7,7 +7,7 @@
     ./system # загрузчик, nix, локаль, сеть, пользователь
     ./hardware # графика, NVIDIA (если есть), звук, bluetooth
     ./desktop # niri, Noctalia, тема, Home Manager
-    ./services # Docker, KVM, прокси, печать
+    ./services # Podman, KVM, прокси, печать
     ./packages # программы
     ./gaming # игровой пользователь (включается в hosts/<имя>)
   ];

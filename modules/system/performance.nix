@@ -23,9 +23,6 @@
   # Не ждать подключения к сети при загрузке
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  # Docker запускается при первом обращении, а не при каждой загрузке
-  virtualisation.docker.enableOnBoot = false;
-
 
   # Раз в неделю TRIM для SSD — диск не замедляется со временем
   services.fstrim.enable = true;

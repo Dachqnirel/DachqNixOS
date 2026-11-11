@@ -12,7 +12,6 @@
       "networkmanager"
       "video"
       "audio"
-      "docker"
       "libvirtd"         # управление виртуалками без sudo
       "kvm"
     ];
