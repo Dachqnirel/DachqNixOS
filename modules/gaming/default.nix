@@ -47,6 +47,16 @@ in
       default = "play";
       description = "Имя игрового пользователя.";
     };
+    pauseUntil = lib.mkOption {
+      type = lib.types.nullOr (lib.types.strMatching "[0-9]{4}-[0-9]{2}-[0-9]{2}");
+      default = null;
+      example = "2026-11-28";
+      description = ''
+        Перерыв от игр: до этой даты (ГГГГ-ММ-ДД) вход в игровой профиль
+        закрыт. В этот день он откроется сам, пересобирать не нужно.
+        null — перерыва нет.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -91,6 +101,39 @@ in
     # (частоты и профиль питания уже подняты на весь сеанс play —
     # см. home/gaming.nix; gamemode добавляет приоритет самой игре)
     programs.gamemode.enable = true;
+
+    # ── Перерыв от игр ─────────────────────────────────────────────────
+    # При загрузке и каждый час сверяет дату: до gaming.pauseUntil
+    # игровой профиль заблокирован (вход отклоняется), после — открыт.
+    systemd.services.gaming-pause = {
+      description = "Перерыв от игр: блокировка профиля ${cfg.user}";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "local-fs.target" ];
+      serviceConfig.Type = "oneshot";
+      path = [ pkgs.shadow pkgs.coreutils ];
+      script =
+        if cfg.pauseUntil == null then
+          ''
+            usermod -U -e "" ${cfg.user} 2>/dev/null || true
+          ''
+        else
+          ''
+            if [ "$(date +%F)" \< "${cfg.pauseUntil}" ]; then
+              usermod -L -e 1 ${cfg.user}
+              echo "Перерыв от игр: ${cfg.user} закрыт до ${cfg.pauseUntil}"
+            else
+              usermod -U -e "" ${cfg.user} 2>/dev/null || true
+              echo "Перерыв закончился: ${cfg.user} открыт"
+            fi
+          '';
+    };
+    systemd.timers.gaming-pause = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "hourly";
+        Persistent = true;
+      };
+    };
 
     # Как в SteamOS: ядро не тормозит программы за «split lock».
     # Некоторые Windows-игры из-за этого заметно дёргаются.

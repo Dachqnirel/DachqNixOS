@@ -33,6 +33,9 @@
 
   # Игровой пользователь play: Steam, Minecraft (см. modules/gaming)
   gaming.enable = true;
+  # Перерыв от игр: профиль play закрыт до этой даты и откроется сам.
+  # Отменить досрочно — удалить строку и пересобрать.
+  gaming.pauseUntil = "2026-11-28";
 
   # Проверка памяти в меню загрузки + полная SysRq (Alt+PrtSc+REISUB)
   boot.loader.systemd-boot.memtest86.enable = true;
