@@ -18,6 +18,7 @@
     users.${username}.imports = [
       ../../home
       ../../home/work.nix
+      ../../home/zotero.nix
     ];
   };
 }
