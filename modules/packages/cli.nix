@@ -6,6 +6,7 @@
     vim
     wget
     git
+    gh
     lshw
     brightnessctl
     unrar
